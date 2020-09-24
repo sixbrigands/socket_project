@@ -13,5 +13,6 @@ while True:
         break
     message = data.decode('utf-8')
     print(message)
-
-    response = s.sendto(data, (addr))
+    message = message.split() #convert to list with [header, host, port, connect_ID]
+    response = "OK" + " " + message[3] + " " + message[1] + " " + message[2]
+    response = s.sendto(bytes(response, 'utf-8'), (addr))
