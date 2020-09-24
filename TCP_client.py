@@ -13,4 +13,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.sendall(b'Hello, world')
     data = s.recv(1024)
 
-print('Received', repr(data))
+print('Received', repr(data)) #repr returns a printabled verson of the byte object data
