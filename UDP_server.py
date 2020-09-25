@@ -10,11 +10,12 @@ def closeConnection():
 
 host = sys.argv[1]  #server port and address      
 port = int(sys.argv[2])
-ID_arr = []  
+ID_arr = []
+timeout_length = 300.0  
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 s.bind((host, port))
-timeout = threading.Timer(3.0, closeConnection)
+timeout = threading.Timer(timeout_length, closeConnection)
 timeout.start()
 print("no data yet, timer started")
 while True:    
@@ -32,7 +33,7 @@ while True:
             ID_arr.append(connect_ID)
             t = threading.Timer(60.0, ID_arr.pop, [0]) #after a minute, remove the first element in the array
             t.start()
-            response = "OK " + mess_arr[1] + " " + mess_arr[2] + " " + mess_arr[3]
+            response = "OK " + mess_arr[1] + " " + host + " " + str(port)
             s.sendto(bytes(response, 'utf-8'), (addr))
 
         #else tell the client to reset the connection ID
@@ -40,7 +41,7 @@ while True:
             response = "RESET " + mess_arr[1]
             s.sendto(bytes(response, 'utf-8'), (addr))
 
-        timeout = threading.Timer(3.0, closeConnection)
+        timeout = threading.Timer(timeout_length, closeConnection)
         timeout.start()
         print("timout restarted!")
 

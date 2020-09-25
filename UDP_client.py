@@ -12,4 +12,16 @@ message    = header + " " + connect_ID + " " + host + " " + str(port)
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s: 
     s.sendto(bytes(message, 'utf-8'), (host, port))
     data, server = s.recvfrom(4096)
-    print(data.decode("utf-8"))
+    message = data.decode('utf-8')
+
+    
+    mess_arr = message.split() #convert to list with [header, connect_ID, host, port] (no host, port if header = RESET)
+    status = mess_arr[0]
+
+    connect_ID = mess_arr[1]
+    
+    if (status == 'OK'):
+        print('Connection established ' + message)
+    else:
+        print('Connection Error ' + connect_ID)
+               
