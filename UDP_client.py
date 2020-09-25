@@ -11,6 +11,7 @@ port       = int(sys.argv[3])
 connect_ID = sys.argv[4]        #a connection id 
 attempt    = 3
 
+#A function to handle connection errors.
 def connection_error():
     global attempt
     global connect_ID
@@ -23,16 +24,19 @@ def connection_error():
 def client():
     global attempt
     global connect_ID
+    #when 3 attempts runs out, print failure and exit
     if (attempt <= 0):
-        print("Connection Failure")
+        print("Connection Failure") 
         os._exit(0)
 
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s: 
         message = header + " " + connect_ID + " " + host + " " + str(port) #build message
         s.sendto(bytes(message, 'utf-8'), (host, port))
+
+        #start timer
         timeout = threading.Timer(60, connection_error)
         timeout.start()
-        data, server = s.recvfrom(4096)
+        data, server = s.recvfrom(4096) #take in response from server
         if data:
             timeout.cancel()
             message = data.decode('utf-8')
@@ -41,6 +45,7 @@ def client():
 
             connect_ID = mess_arr[1]
             
+            #print this if successfully connected to server
             if (status == 'OK'):
                 print('Connection established ' + connect_ID + " " + mess_arr[2] + " " + mess_arr[3])
             else:
