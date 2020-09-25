@@ -12,7 +12,6 @@ timeout_length = 300.0
 
 def shutdown_gracefully():
     print("Connection Timeout")
-    s.close()
     os._exit(0)
 
 def close_connection(conn):

@@ -7,7 +7,6 @@ import os
 
 def closeConnection():
     print("Connection Timeout")
-    s.close()
     os._exit(0)
 
 host = sys.argv[1]  #server port and address      
