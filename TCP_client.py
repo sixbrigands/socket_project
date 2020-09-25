@@ -15,18 +15,18 @@ attempt    = 3
 def connection_error():
     global attempt
     global connect_ID
+    #when 3 attempts runs out, print failure and exit
+    attempt -= 1
+    if (attempt <= 0):
+        print("Connection Failure") 
+        os._exit(0)
     print('Connection Error ' + connect_ID)
     connect_ID = input("Enter a new connection ID: ")
-    attempt -= 1
     client()
 
 def client():
     global attempt
     global connect_ID
-    #when 3 attempts runs out, print failure and exit
-    if (attempt <= 0):
-        print("Connection Failure") 
-        os._exit(0)
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: 
         message = header + " " + connect_ID + " " + host + " " + str(port) #build message

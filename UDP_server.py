@@ -18,11 +18,9 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind((host, port))
 timeout = threading.Timer(timeout_length, closeConnection)
 timeout.start()
-print("no data yet, timer started")
 while True:    
     data, addr = s.recvfrom(4096) # buffer size is 4096 bytes 
     if data:
-        print('timer cancelled')
         timeout.cancel()
         message = data.decode('utf-8')
         print(message)
@@ -44,5 +42,4 @@ while True:
 
         timeout = threading.Timer(timeout_length, closeConnection)
         timeout.start()
-        print("timout restarted!")
 

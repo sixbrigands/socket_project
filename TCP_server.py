@@ -52,7 +52,6 @@ def main():
 
                 timeout = threading.Timer(timeout_length, shutdown_gracefully)
                 timeout.start()
-                print("timout restarted!")
                 
 
 if __name__ == "__main__":
