@@ -3,8 +3,8 @@
 import socket
 import sys
 
-host       = sys.arg[2]        #hostname
-port       = sys.arg[3]        # Use non-privileged ports > 1023
+host       = sys.argv[1]        #hostname
+port       = int(sys.argv[2])        # Use non-privileged ports > 1023
 
 
 #AF_INET = IPv4 rather than AF_INET which would be IPv6

@@ -3,13 +3,13 @@
 import socket
 import sys
 
-header     = sys.arg[1]        #lead string such as 'hello'
-host       = sys.arg[2]        #hostname
-port       = sys.arg[3]        # Use non-privileged ports > 1023
-connect_ID = sys.arg[4]        #a connection id 
+header     = sys.argv[1]        #lead string such as 'hello'
+host       = sys.argv[2]        #hostname
+port       = int(sys.argv[3])        # Use non-privileged ports > 1023
+connect_ID = sys.argv[4]        #a connection id 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
+    s.connect((host, port))
     s.sendall(b'Hello, world')
     data = s.recv(1024)
 
