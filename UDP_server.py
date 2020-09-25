@@ -1,3 +1,5 @@
+#based on code from https://wiki.python.org/moin/UdpCommunication
+
 import socket
 import sys
 import threading
